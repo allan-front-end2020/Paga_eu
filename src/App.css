@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  /* background-image: url(https://tse4.mm.bing.net/th?id=OIP.qkFY2Dhd_gSHAuWwigQ10AAAAA&pid=Api&P=0&h=180);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #f0f2f5; */
+  font-family: 'Gabarito', cursive;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
