@@ -8,7 +8,7 @@ import { ContentPage } from "./styled";
 import { faker } from "@faker-js/faker";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
-
+import { Chart } from "react-google-charts";
 
 const generateData = () => {
   const dat = [];
@@ -41,7 +41,7 @@ function DashbordPage() {
       <h1>Dashbord</h1>
 
       <Row gutter={8}>
-        <Col span={6}>
+        <Col span={8}>
           <Card>
             <Space direction="vertical" className="cardtitle">
               <small>Total á receber</small>
@@ -53,7 +53,7 @@ function DashbordPage() {
             </Typography.Title>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col span={8}>
           <Card>
             <Space direction="vertical" className="cardtitle">
               <small>Total á receber</small>
@@ -65,7 +65,7 @@ function DashbordPage() {
             </Typography.Title>
           </Card>
         </Col>
-        <Col span={6}>
+        <Col span={8}>
           <Card>
             <Space direction="vertical" className="cardtitle">
               <small>Total á receber</small>
@@ -77,23 +77,12 @@ function DashbordPage() {
             </Typography.Title>
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
-            <Space direction="vertical" className="cardtitle">
-              <small>Total á receber</small>
-            </Space>
-            <Typography.Title>
-              <div style={{ display: "flex", fontSize: "34px" }}>
-                R$ <Number n={1234} />,<Number n={97} />
-              </div>
-            </Typography.Title>
-          </Card>
-        </Col>
+       
       </Row>
       <Divider />
       <h2>Historico de Fiados</h2>
-      <Row>
-        <Col span={12}>
+      <Row gutter={8}>
+        <Col span={24}>
           <Table
             dataSource={data}
             columns={[
@@ -115,8 +104,24 @@ function DashbordPage() {
             ]}
           />
         </Col>
-        <Col>
-        
+        <Col span= {24}>
+          <h2>Graficos de fiados</h2>
+          <Chart
+            chartType="ScatterChart"
+            data={[
+              ["Mês", "Valor"],
+              [4, 5.5],
+              [8, 22],
+              [8, 200],
+              [8, 22],
+              [8, 23],
+              [8, 33],
+              [8, 3],
+            ]}
+            width="100%"
+            height="400px"
+            legendToggle
+          />
         </Col>
       </Row>
     </>
