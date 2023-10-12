@@ -56,7 +56,7 @@ function HomePage() {
               items={[
                 {
                   label: "Home",
-                  key: " home",
+                  key: " home-page",
                   icon: <HomeOutlined /> 
                 },
                 {
@@ -79,6 +79,7 @@ function HomePage() {
           </Sider>
 
           <ContentPage>
+    
             <Outlet />
           </ContentPage>
         </Layout>

@@ -4,11 +4,13 @@ import Sider from "antd/es/layout/Sider";
 import { Typography } from "antd";
 
 import { Header, Content } from "antd/es/layout/layout";
-import { ContentPage } from "./styled";
+import { ContentPage, CardContent, BoxLoading } from "./styled";
 import { faker } from "@faker-js/faker";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
-import { Chart } from "react-google-charts";
+
+import { useState, useEffect } from "react";
+import HashLoader from "react-spinners/HashLoader";
 
 const generateData = () => {
   const dat = [];
@@ -36,94 +38,114 @@ function Number({ n }) {
 }
 
 function DashbordPage() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <>
-      <h1>Dashbord</h1>
-
-      <Row gutter={8}>
-        <Col span={8}>
-          <Card>
-            <Space direction="vertical" className="cardtitle">
-              <small>Total á receber</small>
-            </Space>
-            <Typography.Title>
-              <div style={{ display: "flex", fontSize: "34px" }}>
-                R$ <Number n={1234} />,<Number n={97} />
-              </div>
-            </Typography.Title>
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card>
-            <Space direction="vertical" className="cardtitle">
-              <small>Total á receber</small>
-            </Space>
-            <Typography.Title>
-              <div style={{ display: "flex", fontSize: "34px" }}>
-                R$ <Number n={1234} />,<Number n={97} />
-              </div>
-            </Typography.Title>
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card>
-            <Space direction="vertical" className="cardtitle">
-              <small>Total á receber</small>
-            </Space>
-            <Typography.Title>
-              <div style={{ display: "flex", fontSize: "34px" }}>
-                R$ <Number n={1234} />,<Number n={97} />
-              </div>
-            </Typography.Title>
-          </Card>
-        </Col>
-       
-      </Row>
-      <Divider />
-      <h2>Historico de Fiados</h2>
-      <Row gutter={8}>
-        <Col span={24}>
-          <Table
-            dataSource={data}
-            columns={[
-              {
-                dataIndex: "id",
-                title: "ID",
-                key: "id",
-              },
-              {
-                dataIndex: "name",
-                title: "name",
-                key: "name",
-              },
-              {
-                dataIndex: "email",
-                title: "Email Id",
-                key: "email",
-              },
-            ]}
-          />
-        </Col>
-        <Col span= {24}>
-          <h2>Graficos de fiados</h2>
-          <Chart
-            chartType="ScatterChart"
-            data={[
-              ["Mês", "Valor"],
-              [4, 5.5],
-              [8, 22],
-              [8, 200],
-              [8, 22],
-              [8, 23],
-              [8, 33],
-              [8, 3],
-            ]}
-            width="100%"
-            height="400px"
-            legendToggle
-          />
-        </Col>
-      </Row>
+      {loading ? (
+        <BoxLoading>
+          <HashLoader color={"black"} loading={loading} size={50} />
+        </BoxLoading>
+      ) : (
+        <>
+          <h1>Dashbord</h1>
+          <Row gutter={8}>
+            <Col span={8}>
+              <Card>
+                <CardContent>
+                  <Space direction="vertical" className="cardtitle">
+                    <small>Total á receber</small>
+                  </Space>
+                  <Typography.Title>
+                    <div style={{ display: "flex", fontSize: "34px" }}>
+                      R$ <Number n={1234} />,<Number n={97} />
+                    </div>
+                  </Typography.Title>
+                </CardContent>
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card>
+                <CardContent>
+                  <Space direction="vertical" className="cardtitle">
+                    <small>Total de cliente</small>
+                  </Space>
+                  <Typography.Title>
+                    <div style={{ display: "flex", fontSize: "34px" }}>
+                      <Number n={70} />
+                    </div>
+                  </Typography.Title>
+                </CardContent>
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card>
+                <CardContent>
+                  <Space direction="vertical" className="cardtitle">
+                    <small>Valor da Ultima Comra</small>
+                  </Space>
+                  <Typography.Title>
+                    <div style={{ display: "flex", fontSize: "34px" }}>
+                      R$ <Number n={334} />,<Number n={17} />
+                    </div>
+                  </Typography.Title>
+                </CardContent>
+              </Card>
+            </Col>
+          </Row>
+          <Divider />
+          <h2>Historico de Fiados</h2>
+          <Row gutter={8}>
+            <Col span={24}>
+              <Table
+                dataSource={data}
+                columns={[
+                  {
+                    dataIndex: "id",
+                    title: "ID",
+                    key: "id",
+                  },
+                  {
+                    dataIndex: "name",
+                    title: "name",
+                    key: "name",
+                  },
+                  {
+                    dataIndex: "email",
+                    title: "Email Id",
+                    key: "email",
+                  },
+                ]}
+              />
+            </Col>
+            <Col span={24}>
+              {/* <h2>Graficos de fiados</h2>
+    <Chart
+      chartType="ScatterChart"
+      data={[
+        ["Mês", "Valor"],
+        [4, 5.5],
+        [8, 22],
+        [8, 200],
+        [8, 22],
+        [8, 23],
+        [8, 33],
+        [8, 3],
+      ]}
+      width="100%"
+      height="400px"
+      legendToggle
+    /> */}
+            </Col>
+          </Row>
+        </>
+      )}
     </>
   );
 }

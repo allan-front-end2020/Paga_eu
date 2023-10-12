@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 
 import { Button, Table, Space, Modal, Input } from "antd";
-import { Container } from "./styled";
+import { Container, BoxButton,BoxLoading } from "./styled";
 // import { ContentPage } from "./styled";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+
+import { useEffect } from "react";
+import HashLoader from "react-spinners/HashLoader";
 
 function CadastrarClientes() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   const [isEditing, setIsEditing] = useState(false);
   const [editingClinte, setEditingCliente] = useState(null);
   const [dataSource, setDataSource] = useState([
@@ -67,21 +78,26 @@ function CadastrarClientes() {
       render: (record) => (
         <Space size="middle">
           <a href="#">
-            <EditOutlined
-              style={{ color: "blue" }}
+            {" "}
+            <Button
               onClick={() => {
                 editCliente(record);
                 console.log("sssssssssssssssssssss");
               }}
-            />
+            >
+              <EditOutlined style={{ color: "blue" }} />
+              Editar
+            </Button>
           </a>
           <a href="#">
-            <DeleteOutlined
+            <Button
               onClick={() => {
                 deleteCliente(record);
               }}
-              style={{ color: "red" }}
-            />
+            >
+              <DeleteOutlined style={{ color: "red" }} />
+              Deletar
+            </Button>
           </a>
         </Space>
       ),
@@ -130,48 +146,75 @@ function CadastrarClientes() {
 
   return (
     <Container>
-      <h1>Cadastrar Cliente</h1>
-      <Button onClick={AddCliente}>Add Cliente</Button>
-      <Table columns={columns} dataSource={dataSource}></Table>
-      <Modal
-        title="Editar Cliente"
-        visible={isEditing}
-        okText="Salvar"
-        cancelText="Cancelar"
-        onCancel={() => {
-          resetEditing();
-        }}
-        onOk={() => {
-          setDataSource((pre) => {
-            return pre.map((cliente) => {
-              if (cliente.id === editingClinte.id) {
-                return editingClinte;
-              } else {
-                return cliente;
-              }
-            });
-          });
-          resetEditing();
-        }}
-      >
-        <Input
-          value={editingClinte?.name}
-          onChange={(e) => {
-            setEditingCliente((pre) => {
-              return { ...pre, name: e.target.value };
-            });
-          }}
-        />
-        <Input
-          value={editingClinte?.email}
-          onChange={(e) => {
-            setEditingCliente((pre) => {
-              return { ...pre, email: e.target.value };
-            });
-          }}
-        />
-        <Input value={editingClinte?.address} />
-      </Modal>
+      {loading ? (
+
+<BoxLoading>
+<HashLoader color={"black"} loading={loading} size={50} />
+</BoxLoading>
+        
+      ) : (
+        <>
+          <h1>Cadastrar Cliente</h1>
+          <BoxButton>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              size="large"
+              onClick={AddCliente}
+            >
+              Add Cliente
+            </Button>
+          </BoxButton>
+
+          <Table columns={columns} dataSource={dataSource}></Table>
+          <Modal
+            title="Editar Cliente"
+            visible={isEditing}
+            okText="Salvar"
+            cancelText="Cancelar"
+            onCancel={() => {
+              resetEditing();
+            }}
+            onOk={() => {
+              setDataSource((pre) => {
+                return pre.map((cliente) => {
+                  if (cliente.id === editingClinte.id) {
+                    return editingClinte;
+                  } else {
+                    return cliente;
+                  }
+                });
+              });
+              resetEditing();
+            }}
+          >
+            <Input
+              value={editingClinte?.name}
+              onChange={(e) => {
+                setEditingCliente((pre) => {
+                  return { ...pre, name: e.target.value };
+                });
+              }}
+            />
+            <Input
+              value={editingClinte?.email}
+              onChange={(e) => {
+                setEditingCliente((pre) => {
+                  return { ...pre, email: e.target.value };
+                });
+              }}
+            />
+            <Input
+              value={editingClinte?.address}
+              onChange={(e) => {
+                setEditingCliente((pre) => {
+                  return { ...pre, email: e.target.value };
+                });
+              }}
+            />
+          </Modal>
+        </>
+      )}
     </Container>
   );
 }
