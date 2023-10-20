@@ -4,7 +4,7 @@ import Sider from "antd/es/layout/Sider";
 import { Typography } from "antd";
 
 import { Header, Content } from "antd/es/layout/layout";
-import { ContentPage, CardContent, BoxLoading } from "./styled";
+import { ContentPage, CardContent, BoxLoading,CardAndt, TableAntd } from "./styled";
 import { faker } from "@faker-js/faker";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSpring, animated } from "@react-spring/web";
@@ -57,7 +57,7 @@ function DashbordPage() {
           <h1>Dashbord</h1>
           <Row gutter={8}>
             <Col span={8}>
-              <Card>
+              <CardAndt>
                 <CardContent>
                   <Space direction="vertical" className="cardtitle">
                     <small>Total á receber</small>
@@ -68,10 +68,10 @@ function DashbordPage() {
                     </div>
                   </Typography.Title>
                 </CardContent>
-              </Card>
+              </CardAndt>
             </Col>
             <Col span={8}>
-              <Card>
+              <CardAndt>
                 <CardContent>
                   <Space direction="vertical" className="cardtitle">
                     <small>Total de cliente</small>
@@ -82,10 +82,10 @@ function DashbordPage() {
                     </div>
                   </Typography.Title>
                 </CardContent>
-              </Card>
+              </CardAndt>
             </Col>
             <Col span={8}>
-              <Card>
+              <CardAndt>
                 <CardContent>
                   <Space direction="vertical" className="cardtitle">
                     <small>Valor da Ultima Comra</small>
@@ -96,14 +96,14 @@ function DashbordPage() {
                     </div>
                   </Typography.Title>
                 </CardContent>
-              </Card>
+              </CardAndt>
             </Col>
           </Row>
           <Divider />
           <h2>Historico de Fiados</h2>
           <Row gutter={8}>
             <Col span={24}>
-              <Table
+              <TableAntd
                 dataSource={data}
                 columns={[
                   {

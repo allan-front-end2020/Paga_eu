@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Button, Table, Space, Modal, Input } from "antd";
-import { Container, BoxButton,BoxLoading } from "./styled";
+import { Container, BoxButton, BoxLoading } from "./styled";
 // import { ContentPage } from "./styled";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -17,40 +17,19 @@ function CadastrarClientes() {
     }, 2000);
   }, []);
 
+
+  const handleInputChange = (e) => {
+
+    setInputData(e.target.value);
+    console.log(handleInputChange)
+  };
+
+
+  const [inputData, setInputData] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingClinte, setEditingCliente] = useState(null);
-  const [dataSource, setDataSource] = useState([
-    {
-      id: 1,
-      name: "allan tavares",
-      email: "allan.tavares@estudante.ufla.br",
-      address: "rua cabure",
-    },
-    {
-      id: 2,
-      name: "allan tavares",
-      email: "allan.tavares@estudante.ufla.br",
-      address: "rua cabure",
-    },
-    {
-      id: 3,
-      name: "allan tavares",
-      email: "allan.tavares@estudante.ufla.br",
-      address: "rua cabure",
-    },
-    {
-      id: 4,
-      name: "allan tavares",
-      email: "allan.tavares@estudante.ufla.br",
-      address: "rua cabure",
-    },
-    {
-      id: 5,
-      name: "allan tavares",
-      email: "allan.tavares@estudante.ufla.br",
-      address: "rua cabure",
-    },
-  ]);
+  const [dataSource, setDataSource] = useState([]);
   const columns = [
     {
       key: "1",
@@ -103,25 +82,42 @@ function CadastrarClientes() {
       ),
     },
   ];
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   //  ADICIONA CLIENTE
   const AddCliente = () => {
     const randomNumber = parseInt(Math.random() * 100);
     const newCliente = {
       id: randomNumber,
-      name: "Name" + randomNumber,
-      email: randomNumber + "@gmail.com",
-      address: "rua" + randomNumber,
+      name: inputData,
+      email: inputData,
+      address: inputData,
+
     };
+
+    
 
     setDataSource((pre) => {
       return [...pre, newCliente];
     });
+    setInputData('');
   };
 
   //    DELETA CLIENTE
   const deleteCliente = (record) => {
     Modal.confirm({
-      title: "Deseja realmente excluir???",
+      title: "Desejva realmente excluir???",
       okText: "Sim!",
       cancelText: "Cancelar",
       okType: "danger",
@@ -147,11 +143,9 @@ function CadastrarClientes() {
   return (
     <Container>
       {loading ? (
-
-<BoxLoading>
-<HashLoader color={"black"} loading={loading} size={50} />
-</BoxLoading>
-        
+        <BoxLoading>
+          <HashLoader color={"black"} loading={loading} size={50} />
+        </BoxLoading>
       ) : (
         <>
           <h1>Cadastrar Cliente</h1>
@@ -160,11 +154,30 @@ function CadastrarClientes() {
               type="primary"
               icon={<PlusOutlined />}
               size="large"
-              onClick={AddCliente}
+              onClick={showModal}
             >
               Add Cliente
             </Button>
           </BoxButton>
+
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+
+              nome:
+               <Input value={inputData} 
+                  onChange={handleInputChange}
+               />
+              email:   
+               <Input />
+               endereço:   
+               <Input />
+
+               <Button onClick={AddCliente}> Cadastar cliente</Button>
+          </Modal>
 
           <Table columns={columns} dataSource={dataSource}></Table>
           <Modal

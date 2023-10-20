@@ -23,9 +23,8 @@ function LoginPage() {
 
   return (
     <>
-      <Container id="login">
-        {/* <h1>Login do sistemas</h1> */}
-        {/* <p>{String(authenticated)}</p> */}
+       <Container id="login">
+      
         <FormGroup onSubmit={handleSubmit}>
           <h1>Faça seu Login</h1>
           <InputGroup>
@@ -58,8 +57,8 @@ function LoginPage() {
              <Link to= "cadastro">Esqueceu sua senha?</Link>
              <Link to= "cadastro">Cadastrar</Link>
           </FooterLogin>
-        </FormGroup>
-      </Container>
+        </FormGroup> 
+      </Container> 
     </>
   );
 }
